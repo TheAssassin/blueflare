@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="redflare">
+<head>
+    <title>Redflare, but in Python</title>
+
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="components/github-fork-ribbon-css/gh-fork-ribbon.css">
+
+    <link rel="stylesheet" href="redflare.css">
+</head>
+<body>
+    <div class="container-fluid" ng-controller="ServerTableCtrl" >
+        <h1>
+            Redflare, but in Python
+            <strong ng-if="loading">
+                <i class="fa fa-spin fa-spinner"></i>
+            </strong>
+        </h1>
+
+        <table class="table table-striped table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th class="min">players</th>
+                    <th>name</th>
+                    <th class="min">mutators</th>
+                    <th class="min">game</th>
+                    <th class="min">map</th>
+                    <th class="min">time left</th>
+                    <th class="min">access</th>
+                    <th class="min">protocol</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="server in servers track by server.description">
+                    <td class="center min">{{server.players_count}}</td>
+                    <td class="center">
+                        {{server.description}}
+                        <div ng-if="server.players">
+                            <small ng-repeat="player in server.players track by player.name">
+                                <strong ng-style="{'color': player.color}">
+                                    {{player.name}}
+                                </strong>
+                                <strong ng-if="!$last">&bull;</strong>
+                            </small>
+                        </div>
+                    </td>
+                    <td class="right min">{{server.mutators}}</td>
+                    <td class="min">{{server.game_mode}}</td>
+                    <td class="center min">{{server.map_name}}</td>
+                    <td class="center min">{{server.time_left}}</td>
+                    <td class="center min">{{server.asdf}}</td>
+                    <td class="center min">{{server.game_version}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <p class="text-center text-muted">
+                Built by <a href="https://github.com/TheAssassin">TheAssassin</a>
+                <strong>&bull;</strong>
+                <a href="https://github.com/TheAssassin/redflare-python">GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="components/angular/angular.min.js"></script>
+    <script src="redflare.js"></script>
+</body>
+</html>

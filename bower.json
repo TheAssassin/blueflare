@@ -1,0 +1,23 @@
+{
+  "name": "redflare-python",
+  "authors": [
+    "TheAssassin <theassassin@users.noreply.github.com>"
+  ],
+  "description": "Redflare, but in Python",
+  "license": "MIT",
+  "homepage": "https://github.com/TheAssassin/redflare-python",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "frontend/components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.6",
+    "bootstrap": "^3.3.6",
+    "font-awesome": "~4.6.3"
+  }
+}
