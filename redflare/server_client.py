@@ -51,8 +51,9 @@ class ServerClient:
             self.callback = None
 
         else:
-            self.logger.debug("Send request", self.request_count,
-                              "for", repr(self))
+            self.logger.debug("Send request {} for {}".format(
+                self.request_count, repr(self))
+            )
             self.sock.send(b"\x81\xec\x04\x01\x00")
 
             self.timeout_handle = self.ioloop.call_later(self.timeout,
