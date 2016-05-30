@@ -176,6 +176,7 @@ class Server:
                 "privilege": parts[3].strip("($)")[4:-3],
                 "name": re.match("\[[0-9]+\](.*)", parts[4]).group(1),
             })
+        self.players.sort(key=lambda p: p["name"].lower())
 
         # fallback if the server sends an empty description
         if not self.description.strip():
