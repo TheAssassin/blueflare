@@ -177,8 +177,9 @@ class Server:
                 "name": re.match("\[[0-9]+\](.*)", parts[4]).group(1),
             })
 
+        # fallback if the server sends an empty description
         if not self.description.strip():
-            self.description = self.hostname
+            self.description = "{}:[{}]".format(self.hostname, self.port)
 
     @staticmethod
     def from_addserver_line(data):
