@@ -100,7 +100,7 @@ class Server:
         "edit",
         "deathmatch",
         "capture-the-flag",
-        "defend-the-flag",
+        "defend-and-control",
         "bomber-ball",
         "race",
     ]
