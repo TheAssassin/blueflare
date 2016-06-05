@@ -40,10 +40,29 @@
                         {{server.description}}
                         <div ng-if="server.players">
                             <small ng-repeat="player in server.players track by player.name">
-                                <strong ng-style="{'color': player.color}">
-                                    {{player.name}}
-                                </strong>
-                                <strong ng-if="!$last">&bull;</strong>
+                                <span class="player">
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         version="1.1" width="15" height="15" style="vertical-align: text-bottom;">
+                                        <defs>
+                                            <filter id="colorMask">
+                                                <feFlood ng-attr-flood-color="{{player.color}}" result="flood" />
+                                                <feComposite in="SourceGraphic" in2="flood" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" />
+                                            </filter>
+                                            <filter id="brightness">
+                                                <feComponentTransfer>
+                                                    <feFuncR type="linear" slope="1.5"/>
+                                                    <feFuncG type="linear" slope="1.5"/>
+                                                    <feFuncB type="linear" slope="1.5"/>
+                                                </feComponentTransfer>
+                                            </filter>
+                                        </defs>
+                                        <g filter="url(#brightness)">
+                                            <image width="15" height="15" xlink:href="{{player.icon_url}}" filter="url(#colorMask)" />
+                                        </g>
+                                    </svg>
+                                    <strong>{{player.name}}</strong>
+                                    <strong ng-if="!$last">&bull;</strong>
+                                </span>
                             </small>
                         </div>
                     </td>

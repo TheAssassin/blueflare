@@ -5,10 +5,13 @@ redflareApp.controller("ServerTableCtrl", function($scope, $http, $interval) {
         $scope.loading = 1
         $http.get("api/servers.json").then(function(response) {
             var servers = response.data.servers
-            for (var i = 0; i < servers.length; i++) {
-                var server = servers[i]
+            servers.forEach(function(server) {
                 server.mutators = server.mutators.join("-")
-            }
+
+                server.players.forEach(function(player) {
+                    player.icon_url = "privicons/" + player.privilege + ".png"
+                })
+            })
             $scope.servers = servers
             $scope.loading = 0
         })

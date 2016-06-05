@@ -34,3 +34,7 @@ th.right, td.right {
     vertical-align: middle;
     margin: 0;
 }
+
+.player {
+    white-space: nowrap;
+}
