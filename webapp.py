@@ -1,8 +1,10 @@
 import json
 import logging
 import os
+import re
 from tornado import gen, ioloop, web
 from redflare.master_client import MasterClient
+from redflare.privilege_icons import IconNotFoundError, generate_privilege_icon
 from redflare.server_client import ServerClient
 
 
@@ -38,11 +40,35 @@ class IndexHandler(web.RequestHandler):
         self.write(rv)
 
 
+class PrivilegeIconHandler(web.RequestHandler):
+    def get(self, privilege, color):
+        def abort(message):
+            self.set_status(400)
+            self.add_header("Content-Type", "text/plain")
+            self.write(message)
+
+        # validate color format
+        if not (len(color) in (3, 6) and re.match("[a-fA-F0-9]+", color)):
+            abort("Error: Invalid color")
+
+        else:
+            color = "#" + color
+
+            try:
+                icon = generate_privilege_icon(privilege, color)
+            except IconNotFoundError:
+                abort("Error: No such privilege: {}".format(privilege))
+            else:
+                self.add_header("Content-Type", "image/svg+xml")
+                self.write(icon)
+
+
 if __name__ == "__main__":
     # creating web application...
     frontend_path = os.path.join(os.path.dirname(__file__), "frontend")
 
     application = web.Application([
+        (r"/privilege-icon/(\w+)/(\w+).svg", PrivilegeIconHandler),
         (r"/api/servers.json", IndexHandler),
         (r"/(.*)", web.StaticFileHandler, {"path": frontend_path})
     ], autoreload=False)

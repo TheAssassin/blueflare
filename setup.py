@@ -6,5 +6,8 @@ setup(
     packages=find_packages(),
     install_requires=[
         "tornado==4.3",
-    ]
+    ],
+    package_data = {
+        "": ["privilege-icons/*.svg"],
+    }
 )
