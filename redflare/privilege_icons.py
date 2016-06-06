@@ -25,8 +25,6 @@ def generate_privilege_icon(privilege_name, color):
     except IOError:
         raise IconNotFoundError()
 
-    # order of white colors is important
-    for white in ("#ffffff", "#fff"):
-        content = content.replace(white, color)
+    content = content.replace("#ffffff", color)
 
     return content
