@@ -8,6 +8,6 @@ setup(
         "tornado==4.3",
     ],
     package_data = {
-        "": ["privilege-icons/*.svg"],
+        "": ["privilege-icons/*.*"],
     }
 )
