@@ -4,8 +4,9 @@ This repository provides clients for the [Red Eclipse](http://redeclipse.net) ma
 protocol and the server info protocol. It also contains a web application as a frontend and
 as an example application.
 
-This application was created as a more modern competitor to the original
-[Redflare](https://redflare.ofthings.net) (guess where its name originated from).
+This application was created as a modern competitor to the original
+[Redflare](http://redflare.ofthings.net)
+([Github project](https://github.com/stainsby/redflare), guess where its name originated from).
 
 This application uses the tornado framework and runs only on Python 3.5.
 
