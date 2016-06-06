@@ -41,7 +41,7 @@
                         <div ng-if="server.players">
                             <small ng-repeat="player in server.players track by player.name">
                                 <span class="player">
-                                    <img ng-src="{{privilegeIconURL(player)}}" class="privilege-icon">
+                                    <img ng-src="{{getPrivilegeIconURL(player)}}" class="privilege-icon">
                                     <strong>{{player.name}}</strong>
                                     <strong ng-if="!$last">&bull;</strong>
                                 </span>

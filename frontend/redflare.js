@@ -1,7 +1,7 @@
 var redflareApp = angular.module("redflare", [])
 
 redflareApp.controller("ServerTableCtrl", function($scope, $http, $interval) {
-    $scope.privilegeIconURL = function(player) {
+    $scope.getPrivilegeIconURL = function(player) {
         return "privilege-icon/" + player.privilege + "/" + player.color.slice(1, 7) + ".svg"
     }
 
