@@ -171,10 +171,13 @@ class Server:
         for i in range(self.players_count):
             player = stream.next_string()
             parts = player.split("\f")
+            team_color, name = re.match("\[([0-9]+)\](.*)", parts[4]).groups()
+
             self.players.append({
                 "color": "#" + hex(int(parts[2].strip("[]")))[2:].zfill(6),
                 "privilege": parts[3].strip("($)")[4:-3],
-                "name": re.match("\[[0-9]+\](.*)", parts[4]).group(1),
+                "team_color": "#" + hex(int(team_color))[2:].zfill(6),
+                "name": name,
             })
         self.players.sort(key=lambda p: p["name"].lower())
 

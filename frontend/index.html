@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="components/github-fork-ribbon-css/gh-fork-ribbon.css">
 
     <link rel="stylesheet" href="redflare.css">
 </head>
@@ -42,7 +41,7 @@
                             <small ng-repeat="player in server.players track by player.name">
                                 <span class="player">
                                     <img ng-src="{{getPrivilegeIconURL(player)}}" class="privilege-icon">
-                                    <strong>{{player.name}}</strong>
+                                    <strong ng-style="{'color': player.text_color}">{{player.name}}</strong>
                                     <strong ng-if="!$last">&bull;</strong>
                                 </span>
                             </small>
@@ -70,6 +69,7 @@
     </footer>
 
     <script src="components/angular/angular.min.js"></script>
+    <script src="components/tinycolor/tinycolor.js"></script>
     <script src="redflare.js"></script>
 </body>
 </html>

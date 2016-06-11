@@ -23,6 +23,19 @@ redflareApp.controller("ServerTableCtrl", function($scope, $http, $interval) {
             servers.forEach(function(server) {
                 server.mutators = server.mutators.join("-")
                 server.time_formatted = formatTime(server.time_remaining)
+
+                server.players.forEach(function(player) {
+                    var textColor = tinycolor(player.team_color)
+
+                    // replace grey color (or colors with a really low saturation) with black
+                    // to improve readability (this includes the default neutral team color)
+                    if (textColor.toHsv().s < 0.125) {
+                        textColor = tinycolor("#000000")
+                    }
+
+                    // darken the color a bit to improve readability
+                    player.text_color = textColor.darken(5).toString()
+                })
             })
             $scope.servers = servers
             $scope.loading = 0
