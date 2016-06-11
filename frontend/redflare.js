@@ -31,4 +31,17 @@ redflareApp.controller("ServerTableCtrl", function($scope, $http, $interval) {
 
     $interval(fetch, 10000)
     fetch()
+
+    var countdown = function() {
+        if ($scope.servers) {
+            $scope.servers.forEach(function(server) {
+                if (server.players.length > 0) {
+                    server.time_remaining--
+                    server.time_formatted = formatTime(server.time_remaining)
+                }
+            })
+        }
+    }
+
+    $interval(countdown, 1000)
 })
