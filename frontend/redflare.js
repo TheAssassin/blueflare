@@ -34,7 +34,7 @@ redflareApp.controller("ServerTableCtrl", function($scope, $http, $interval) {
                     }
 
                     // darken the color a bit to improve readability
-                    player.text_color = textColor.darken(5).toString()
+                    player.text_color = textColor.darken(10).toString()
                 })
             })
             $scope.servers = servers
