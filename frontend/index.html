@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="redflare.css">
 </head>
 <body>
-    <div class="container-fluid" ng-controller="ServerTableCtrl" >
+    <div class="container-fluid" ng-controller="ServerTableCtrl">
         <h1>
             Redflare, but in Python
             <strong ng-if="loading">
@@ -36,7 +36,9 @@
                 <tr ng-repeat="server in servers track by server.description">
                     <td class="center min">{{server.players_count}}</td>
                     <td class="center">
-                        {{server.description}}
+                        <a uib-popover-template="'server-info.html'" popover-trigger="outsideClick" class="btn-connect-info">
+                            {{server.description}}
+                        </a>
                         <div ng-if="server.players">
                             <small ng-repeat="player in server.players track by player.name">
                                 <span class="player">
@@ -68,7 +70,18 @@
         </div>
     </footer>
 
+    <script type="text/ng-template" id="server-info.html">
+        <div>
+            <div>
+                <label>Connect to this server:</label>
+                <input class="form-control connect-info" value="/connect {{server.hostname}} {{server.port}}" readonly>
+            </div>
+        </div>
+    </script>
+
     <script src="components/angular/angular.min.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="components/tinycolor/tinycolor.js"></script>
     <script src="redflare.js"></script>
 </body>
