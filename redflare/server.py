@@ -197,6 +197,8 @@ class Server:
 
     def to_dict(self):
         return {
+            "hostname": self.hostname,
+            "port": self.port,
             "players_count": self.players_count,
             "fifteen": self.fifteen,
             "protocol": self.protocol,
