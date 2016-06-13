@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="components/flag-icon-css/css/flag-icon.min.css">
 
     <link rel="stylesheet" href="redflare.css">
 </head>
@@ -24,6 +25,7 @@
                 <tr>
                     <th class="min">players</th>
                     <th>name</th>
+                    <th class="min">country</th>
                     <th class="min">mutators</th>
                     <th class="min">game</th>
                     <th class="min">map</th>
@@ -48,6 +50,10 @@
                                 </span>
                             </small>
                         </div>
+                    </td>
+                    <td class="center min">
+                        <span class="flag-icon flag-icon-{{server.country | lowercase}}"></span>
+                        {{server.country}}
                     </td>
                     <td class="right min">{{server.mutators}}</td>
                     <td class="min">{{server.game_mode}}</td>
