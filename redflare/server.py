@@ -1,6 +1,8 @@
 import re
 import struct
 
+from geoip import geolite2
+
 
 class Cube2BytesStream:
 
@@ -105,10 +107,15 @@ class Server:
         "race",
     ]
 
-    def __init__(self, hostname, port, type):
-        self.hostname = hostname
+    def __init__(self, ip_address, port, type):
+        self.hostname = ip_address
         self.port = port
         self.type = type
+
+        try:
+            self.country = geolite2.lookup(ip_address).country
+        except AttributeError:
+            self.country = None
 
         # Will be added later as soon as the data is fetched from the server
         # itself
@@ -199,6 +206,8 @@ class Server:
         return {
             "hostname": self.hostname,
             "port": self.port,
+            "type": self.type,
+            "country": self.country,
             "players_count": self.players_count,
             "fifteen": self.fifteen,
             "protocol": self.protocol,
