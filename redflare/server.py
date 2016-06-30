@@ -174,6 +174,12 @@ class Server:
         self.map_name = stream.next_string()
         self.description = stream.next_string()
 
+        # quick fix to make redflare-python work with 1.5.5 release
+        if self.version[:2] == (1, 5) and self.version[2] > 3:
+            # throw away some irrelevant string that has been added after
+            # the description in 1.5.5 release
+            stream.next_string()
+
         self.players = []
         for i in range(self.players_count):
             player = stream.next_string()
