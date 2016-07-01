@@ -8,6 +8,7 @@ setup(
         "tornado==4.3",
         "python-geoip-python3",
         "python-geoip-geolite2",
+        "chardet",
     ],
     package_data = {
         "": ["privilege-icons/*.*"],

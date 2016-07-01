@@ -1,3 +1,4 @@
+import chardet
 import socket
 import time
 from tornado import gen, iostream, locks
@@ -39,7 +40,8 @@ class MasterClient:
             yield stream.write(b"update\n")
             data = yield stream.read_until_close()
 
-            lines = data.decode().splitlines()
+            codec = chardet.detect(data)["encoding"]
+            lines = data.decode(codec).splitlines()
 
             for line in lines:
                 if line.startswith("addserver"):
