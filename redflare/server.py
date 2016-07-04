@@ -84,7 +84,20 @@ class Server:
         "vampire": 1 << 11,
         "resize": 1 << 12,
         "hard": 1 << 13,
-        "basic": 1 << 14
+        "basic": 1 << 14,
+        # game specific mutators
+        "gsp1": 1 << 15,
+        "gsp2": 1 << 16,
+        "gsp3": 1 << 17,
+    }
+
+    # more descriptive than "gsp1", "gsp2" or "gsp3"
+    GSP_MUTATORS = {
+        "deathmatch": ["gladiator", "oldschool"],
+        "capture-the-flag": ["quick", "defend", "protect"],
+        "defend-and-control": ["quick", "king"],
+        "bomber-ball": ["hold", "basket", "attack"],
+        "race": ["timed", "endurance", "gauntlet"],
     }
 
     # see src/game/game.h
@@ -156,8 +169,14 @@ class Server:
 
         self.protocol = stream.next_int()
         self.game_mode = self.GAMEMODES[stream.next_int()]
+
         mutators = stream.next_int()
         self.mutators = [k for k, v in self.MUTATORS.items() if v & mutators]
+        for i, gsp in enumerate(["gsp1", "gsp2", "gsp3"]):
+            if gsp in self.mutators:
+                gsp_description = self.GSP_MUTATORS[self.game_mode][i]
+                self.mutators[self.mutators.index(gsp)] = gsp_description
+
         self.time_remaining = stream.next_int()
         self.max_slots = stream.next_int()
         self.mastermode = self.MASTERMODES[stream.next_int()]
