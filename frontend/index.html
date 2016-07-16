@@ -36,7 +36,9 @@
             </thead>
             <tbody>
                 <tr ng-repeat="server in servers track by server.description">
-                    <td class="center min">{{server.players_count}}</td>
+                    <td class="center min">
+                        <strong>{{server.players_count}}</strong>/{{server.max_slots}}
+                    </td>
                     <td class="center">
                         <a uib-popover-template="'server-info.html'" popover-trigger="outsideClick" class="btn-connect-info">
                             {{server.description}}
