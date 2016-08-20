@@ -21,9 +21,13 @@ class IndexHandler(web.RequestHandler):
         @gen.coroutine
         def fetch(server):
             server_client = ServerClient(server.hostname, server.port)
-            query_reply = yield gen.Task(server_client.fetch_query_reply)
-            if query_reply is not None:
-                server.parse_query_reply(query_reply)
+            try:
+                query_reply = yield gen.Task(server_client.fetch_query_reply)
+            except Exception as e:
+                print("Error fetching information for %r" % server)
+            else:
+                if query_reply is not None:
+                    server.parse_query_reply(query_reply)
 
 
         self.logger.info("Fetching data from {} servers".format(len(servers)))
@@ -86,7 +90,8 @@ if __name__ == "__main__":
     redflare_handler.setFormatter(
         logging.Formatter(
             '%(asctime)s %(levelname)s: %(message)s '
-            '[in %(pathname)s:%(lineno)d]')
+            '[in %(pathname)s:%(lineno)d]'
+        )
     )
     redflare_logger.addHandler(redflare_handler)
 
