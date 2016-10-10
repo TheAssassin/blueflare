@@ -1,4 +1,5 @@
 import re
+import shlex
 import struct
 
 from geoip import geolite2
@@ -120,10 +121,11 @@ class Server:
         "race",
     ]
 
-    def __init__(self, ip_address, port, type):
+    def __init__(self, ip_address, port, type, flags):
         self.hostname = ip_address
         self.port = port
         self.type = type
+        self.flags = flags
 
         try:
             self.country = geolite2.lookup(ip_address).country
@@ -219,19 +221,21 @@ class Server:
 
     @staticmethod
     def from_addserver_line(data):
-        parts = data.split()
+        parts = shlex.split(data)
 
         hostname = parts[1]
         port = int(parts[2])
         type = int(parts[3])
+        flags = list(parts[-2])
 
-        return Server(hostname, port, type)
+        return Server(hostname, port, type, flags)
 
     def to_dict(self):
         return {
             "hostname": self.hostname,
             "port": self.port,
             "type": self.type,
+            "flags": self.flags,
             "country": self.country,
             "players_count": self.players_count,
             "fifteen": self.fifteen,
