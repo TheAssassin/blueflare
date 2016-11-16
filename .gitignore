@@ -7,3 +7,8 @@ __pycache__/
 .idea/
 
 frontend/components/
+
+venv/
+
+build/
+dist/
