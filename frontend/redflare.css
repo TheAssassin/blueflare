@@ -60,3 +60,7 @@ th.right, td.right {
 .nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
 }
+
+.inline-block {
+    display: inline-block !important;
+}
