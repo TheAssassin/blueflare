@@ -1,5 +1,3 @@
-var redflareApp = angular.module("redflare", ["ui.bootstrap"])
-
 var gamemodeMap = {
     "edit": "edit",
     "deathmatch": "dm",
@@ -8,6 +6,12 @@ var gamemodeMap = {
     "bomber-ball": "bb",
     "race": "race",
 }
+
+var redflareApp = angular.module("redflare", ["ui.bootstrap"])
+
+redflareApp.config(["$compileProvider", function ($compileProvider) {
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|redeclipse):/);
+}]);
 
 redflareApp.controller("ServerTableCtrl", function($scope, $http, $interval, $sce) {
     $scope.getPrivilegeIconURL = function(player) {
@@ -55,6 +59,8 @@ redflareApp.controller("ServerTableCtrl", function($scope, $http, $interval, $sc
                     // darken the color a bit to improve readability
                     player.text_color = textColor.darken(10).toString()
                 })
+
+                server.url = "redeclipse://" + server.hostname + ":" + server.port + "/"
             })
             $scope.servers = servers
             $scope.loading = 0

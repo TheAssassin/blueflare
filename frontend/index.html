@@ -118,10 +118,9 @@
 
     <script type="text/ng-template" id="server-info.html">
         <div>
-            <div>
-                <label>Connect to this server:</label>
-                <input class="form-control connect-info" value="/connect {{server.hostname}} {{server.port}}" readonly>
-            </div>
+            <label>Connect to this server:</label>
+            <input class="form-control connect-info" value="/connect {{server.hostname}} {{server.port}}" readonly>
+            <a class="btn btn-primary btn-block btn-play" ng-href="{{server.url}}">Play on this server!</a>
         </div>
     </script>
 
