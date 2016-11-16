@@ -1,5 +1,14 @@
 var redflareApp = angular.module("redflare", ["ui.bootstrap"])
 
+var gamemodeMap = {
+    "edit": "edit",
+    "deathmatch": "dm",
+    "capture-the-flag": "ctf",
+    "defend-and-control": "dac",
+    "bomber-ball": "bb",
+    "race": "race",
+}
+
 redflareApp.controller("ServerTableCtrl", function($scope, $http, $interval, $sce) {
     $scope.getPrivilegeIconURL = function(player) {
         return "privilege-icon/" + player.privilege + "/" + player.color.slice(1, 7) + ".svg"
@@ -21,7 +30,17 @@ redflareApp.controller("ServerTableCtrl", function($scope, $http, $interval, $sc
         $http.get("api/servers.json").then(function(response) {
             var servers = response.data.servers
             servers.forEach(function(server) {
+                server.muts_short = []
+
+                server.mutators.forEach(function(mutator) {
+                    server.muts_short.push(mutator.slice(0, 2))
+                })
+
                 server.mutators = server.mutators.join("-")
+                server.muts_short = server.muts_short.join("-")
+
+                server.mode_short = gamemodeMap[server.game_mode]
+
                 server.time_formatted = formatTime(server.time_remaining)
 
                 server.players.forEach(function(player) {

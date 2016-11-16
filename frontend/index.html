@@ -24,15 +24,35 @@
             <thead>
                 <tr>
                     <th class="min">players</th>
-                    <th>name</th>
-                    <th class="min">country</th>
-                    <th class="min">mutators</th>
-                    <th class="min">game</th>
-                    <th class="min">map</th>
-                    <th class="min">time left</th>
-                    <th class="min">mastermode</th>
-                    <th class="min">version</th>
-                    <th class="min">flags</th>
+                    <th>
+                        server name
+                    </th>
+                    <th class="min">
+                        <span class="visible-md visible-lg">country</span>
+                        <span class="visible-xs visible-sm">c</span>
+                    </th>
+                    <th class="min">
+                        <span class="visible-md visible-lg">mutators</span>
+                        <span class="visible-xs visible-sm">muts</span>
+                    </th>
+                    <th class="min">
+                        mode
+                    </th>
+                    <th class="min">
+                        map
+                    </th>
+                    <th class="min visible-sm visible-md visible-lg">
+                        time left
+                    </th>
+                    <th class="min visible-md visible-lg">
+                        mastermode
+                    </th>
+                    <th class="min visible-md visible-lg">
+                        version
+                    </th>
+                    <th class="min visible-md visible-lg">
+                        flags
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -58,15 +78,27 @@
                     </td>
                     <td class="center min">
                         <span class="flag-icon flag-icon-{{server.country | lowercase}}"></span>
-                        {{server.country}}
+                        <span class="visible-md visible-lg">{{server.country}}</span>
                     </td>
-                    <td class="right min">{{server.mutators}}</td>
-                    <td class="min">{{server.game_mode}}</td>
-                    <td class="center min">{{server.map_name}}</td>
-                    <td class="center min">{{server.time_formatted}}</td>
-                    <td class="center min">{{server.mastermode}}</td>
-                    <td class="center min">{{server.version}}</td>
+                    <td class="right min">
+                        <span class="visible-md visible-lg">{{server.mutators}}</span>
+                        <span class="visible-xs visible-sm">{{server.muts_short}}</span>
+                    </td>
+                    <td class="min">
+                        <span class="visible-md visible-lg">{{server.game_mode}}</span>
+                        <span class="visible-xs visible-sm">{{server.mode_short}}</span>
+                    </td>
                     <td class="center min">
+                        {{server.map_name}}
+                    </td>
+                    <td class="center min visible-sm visible-md visible-lg">
+                        {{server.time_formatted}}
+                    </td>
+                    <td class="center min visible-md visible-lg">
+                        {{server.mastermode}}</td>
+                    <td class="center min visible-md visible-lg">{{server.version}}
+                    </td>
+                    <td class="center min visible-md visible-lg">
                         <i class="fa fa-database" ng-if="server.flags.indexOf('s') >= 0"></i>
                     </td>
                 </tr>
