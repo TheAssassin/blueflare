@@ -4,6 +4,7 @@
     <title>Redflare, but in Python</title>
 
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
@@ -28,17 +29,17 @@
                         server name
                     </th>
                     <th class="min">
-                        <span class="visible-md visible-lg">country</span>
-                        <span class="visible-xs visible-sm">c</span>
+                        <span class="visible-xs visible-md visible-lg">country</span>
+                        <span class="visible-sm">c</span>
                     </th>
                     <th class="min">
                         <span class="visible-md visible-lg">mutators</span>
-                        <span class="visible-xs visible-sm">muts</span>
+                        <span class="visible-sm">muts</span>
                     </th>
-                    <th class="min">
+                    <th class="min visible-sm visible-md visible-lg">
                         mode
                     </th>
-                    <th class="min">
+                    <th class="min visible-sm visible-md visible-lg">
                         map
                     </th>
                     <th class="min visible-sm visible-md visible-lg">
@@ -76,19 +77,24 @@
                             </small>
                         </div>
                     </td>
-                    <td class="center min" style="white-space: nowrap;">
-                        <span class="flag-icon flag-icon-{{server.country | lowercase}} inline-block"></span>
-                        <span class="visible-md visible-lg inline-block">{{server.country}}</span>
+                    <td class="center min nowrap">
+                        <span class="visible-md visible-lg">
+                            <span class="flag-icon flag-icon-{{server.country | lowercase}} force-inline-block"></span>
+                            <span class="force-inline-block">{{server.country}}</span>
+                        </span>
+                        <span class="visible-xs visible-sm">
+                            <span class="flag-icon flag-icon-{{server.country | lowercase}} force-inline-block"></span>
+                        </span>
                     </td>
                     <td class="right min">
                         <span class="visible-md visible-lg">{{server.mutators}}</span>
-                        <span class="visible-xs visible-sm">{{server.muts_short}}</span>
+                        <span class="visible-sm">{{server.muts_short}}</span>
                     </td>
                     <td class="min">
                         <span class="visible-md visible-lg">{{server.game_mode}}</span>
-                        <span class="visible-xs visible-sm">{{server.mode_short}}</span>
+                        <span class="visible-sm">{{server.mode_short}}</span>
                     </td>
-                    <td class="center min">
+                    <td class="center min visible-sm visible-md visible-lg">
                         {{server.map_name}}
                     </td>
                     <td class="center min visible-sm visible-md visible-lg">

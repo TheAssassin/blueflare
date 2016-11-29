@@ -61,8 +61,12 @@ th.right, td.right {
     cursor: pointer;
 }
 
-.inline-block {
+.force-inline-block {
     display: inline-block !important;
+}
+
+.nowrap {
+    white-space: nowrap;
 }
 
 .btn-play {
