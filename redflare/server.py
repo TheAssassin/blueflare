@@ -202,6 +202,7 @@ class Server:
             stream.next_string()
 
         self.players = []
+
         for i in range(self.players_count):
             player = stream.next_string()
             parts = player.split("\f")
@@ -213,6 +214,15 @@ class Server:
                 "team_color": "#" + hex(int(team_color))[2:].zfill(6),
                 "name": name,
             })
+
+        for player in self.players:
+            account = stream.next_string().strip()
+
+            if len(account) == 0:
+                account = None
+
+            player["account"] = account
+
         self.players.sort(key=lambda p: p["name"].lower())
 
         # fallback if the server sends an empty description

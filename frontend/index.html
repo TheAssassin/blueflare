@@ -71,7 +71,7 @@
                             <small ng-repeat="player in server.players track by player.name">
                                 <span class="player">
                                     <img ng-src="{{getPrivilegeIconURL(player)}}" class="privilege-icon">
-                                    <strong ng-style="{'color': player.text_color}">{{player.name}}</strong>
+                                    <strong ng-style="{'color': player.text_color}" uib-tooltip="{{player.account}}">{{player.name}}</strong>
                                     <strong ng-if="!$last">&bull;</strong>
                                 </span>
                             </small>
