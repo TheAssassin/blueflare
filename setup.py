@@ -7,6 +7,7 @@ setup(
     install_requires=[
         "tornado==4.3",
         "geoip2",
+        "chardet",
     ],
     package_data = {
         "": ["privilege-icons/*.*"],
