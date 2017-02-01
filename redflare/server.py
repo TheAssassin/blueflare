@@ -1,8 +1,13 @@
+import glob
 import re
 import shlex
 import struct
 
-from geoip import geolite2
+from geoip2.database import Reader as GeoIPReader
+
+
+# assumes to find a GeoLite2 database in the current working directory
+geoip_reader = GeoIPReader(glob.glob("GeoLite2-*.mmdb")[0])
 
 
 class Cube2BytesStream:
@@ -128,7 +133,7 @@ class Server:
         self.flags = flags
 
         try:
-            self.country = geolite2.lookup(ip_address).country
+            self.country = geoip_reader.country(ip_address).country.iso_code
         except AttributeError:
             self.country = None
 

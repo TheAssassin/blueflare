@@ -6,9 +6,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "tornado==4.3",
-        "python-geoip-python3",
-        "python-geoip-geolite2",
-        "chardet",
+        "geoip2",
     ],
     package_data = {
         "": ["privilege-icons/*.*"],

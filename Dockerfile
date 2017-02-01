@@ -2,8 +2,13 @@ FROM python:3.5-alpine
 
 MAINTAINER "TheAssassin <theassassin@user.noreply.github.com>"
 
-RUN apk add --no-cache ca-certificates gcc git musl-dev nodejs && \
+RUN apk add --no-cache ca-certificates gcc git musl-dev nodejs libmaxminddb-dev && \
     npm install -g bower
+
+RUN mkdir -p /redflare && \
+    cd /redflare && \
+    wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz && \
+    gunzip GeoLite2-Country.mmdb.gz
 
 ADD ./redflare /redflare/redflare
 ADD ./frontend /redflare/frontend
