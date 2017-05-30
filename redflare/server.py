@@ -4,6 +4,7 @@ import shlex
 import struct
 
 from geoip2.database import Reader as GeoIPReader
+from geoip2.errors import AddressNotFoundError
 
 
 # assumes to find a GeoLite2 database in the current working directory
@@ -134,7 +135,7 @@ class Server:
 
         try:
             self.country = geoip_reader.country(ip_address).country.iso_code
-        except AttributeError:
+        except (AttributeError, AddressNotFoundError):
             self.country = None
 
         # Will be added later as soon as the data is fetched from the server
