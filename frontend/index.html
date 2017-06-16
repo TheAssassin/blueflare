@@ -104,8 +104,10 @@
                         {{server.mastermode}}</td>
                     <td class="center min visible-md visible-lg">{{server.version}}
                     </td>
-                    <td class="center min visible-md visible-lg">
-                        <i class="fa fa-database" ng-if="server.flags.indexOf('s') >= 0"></i>
+                    <td class="min visible-md visible-lg">
+                        <i class="fa fa-fw fa-registered" title="authenticated" ng-if="server.flags.indexOf('b') >= 0 || server.flags.indexOf('s') >= 0"></i>
+                        <i class="fa fa-fw fa-list-ul" title="provides master server" ng-if="server.flags.indexOf('m') >= 0"></i>
+                        <i class="fa fa-fw fa-bar-chart-o" title="records statistics" ng-if="server.flags.indexOf('s') >= 0"></i>
                     </td>
                 </tr>
             </tbody>
