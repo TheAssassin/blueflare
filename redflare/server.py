@@ -127,10 +127,10 @@ class Server:
         "race",
     ]
 
-    def __init__(self, ip_address, port, type, flags):
+    def __init__(self, ip_address, port, priority, flags):
         self.hostname = ip_address
         self.port = port
-        self.type = type
+        self.priority = priority
         self.flags = flags
 
         try:
@@ -241,16 +241,16 @@ class Server:
 
         hostname = parts[1]
         port = int(parts[2])
-        type = int(parts[3])
+        priority = int(parts[3])
         flags = list(parts[-2])
 
-        return Server(hostname, port, type, flags)
+        return Server(hostname, port, priority, flags)
 
     def to_dict(self):
         return {
             "hostname": self.hostname,
             "port": self.port,
-            "type": self.type,
+            "priority": self.priority,
             "flags": self.flags,
             "country": self.country,
             "players_count": self.players_count,
