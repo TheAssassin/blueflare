@@ -35,7 +35,7 @@ class IndexHandler(web.RequestHandler):
         yield y
 
         servers_list = [server.to_dict() for server in servers if server.protocol is not None]
-        servers_list.sort(key=lambda i: (-i["players_count"], i["description"].lower()))
+        servers_list.sort(key=lambda i: (-i["players_count"], -i["priority"], i["description"].lower()))
 
         rv = json.dumps(dict(servers=servers_list))
 
