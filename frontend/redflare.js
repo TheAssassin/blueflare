@@ -53,11 +53,11 @@ redflareApp.controller("ServerTableCtrl", function($scope, $http, $interval, $sc
                     // replace grey color (or colors with a really low saturation) with black
                     // to improve readability (this includes the default neutral team color)
                     if (textColor.toHsv().s < 0.125) {
-                        textColor = tinycolor("#000000")
+                        textColor = tinycolor("#ccc")
                     }
 
-                    // darken the color a bit to improve readability
-                    player.text_color = textColor.darken(10).toString()
+                    // lighten the color a bit to improve readability
+                    player.text_color = textColor.lighten(10).toString()
                 })
 
                 server.url = "redeclipse://" + server.hostname + ":" + server.port + "/"
