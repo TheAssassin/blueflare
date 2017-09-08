@@ -12,6 +12,7 @@ RUN mkdir -p /redflare && \
 
 ADD ./redflare /redflare/redflare
 ADD ./frontend /redflare/frontend
+ADD ./maps /redflare/maps
 ADD ./*.py ./.bowerrc ./bower.json /redflare/
 
 WORKDIR /redflare/
