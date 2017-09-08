@@ -1,4 +1,5 @@
 import glob
+import os
 import re
 import shlex
 import struct
@@ -199,6 +200,16 @@ class Server:
         self.time_left = stream.next_int()
 
         self.map_name = stream.next_string()
+
+        this_dir = os.path.abspath(os.path.dirname(__file__))
+        screenshot_name = "%s.png" % self.map_name
+        screenshot_path = os.path.join(this_dir, "../maps/%s" % screenshot_name)
+        if os.path.isfile(screenshot_path):
+            self.map_screenshot = screenshot_name
+        else:
+            self.map_screenshot = "unknown.png"
+
+
         self.description = stream.next_string()
 
         # quick fix to make redflare-python work with 1.5.5 release
@@ -269,6 +280,7 @@ class Server:
             "game_state": self.game_state,
             "time_left": self.time_left,
             "map_name": self.map_name,
+            "map_screenshot": self.map_screenshot,
             "description": self.description,
             "players": self.players,
         }

@@ -95,7 +95,9 @@
                         <span class="visible-sm">{{server.mode_short}}</span>
                     </td>
                     <td class="center min visible-sm visible-md visible-lg">
-                        {{server.map_name}}
+                        <a uib-popover-template="'map-screenshot.html'" popover-trigger="mouseenter" popover-placement="right" class="btn-connect-info">
+                            {{server.map_name}}
+                        </a>
                     </td>
                     <td class="center min visible-sm visible-md visible-lg">
                         {{server.time_formatted}}
@@ -133,6 +135,12 @@
             <label>Connect to this server:</label>
             <input class="form-control connect-info" value="/connect {{server.hostname}} {{server.port}}" readonly>
             <a class="btn btn-primary btn-block btn-play" ng-href="{{server.url}}">Play on this server!</a>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="map-screenshot.html">
+        <div>
+            <img ng-src="maps/{{server.map_screenshot}}" class="map-screenshot"/>
         </div>
     </script>
 

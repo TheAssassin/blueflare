@@ -86,3 +86,8 @@ th.right, td.right {
 .btn-play {
     margin-top: 8px;
 }
+
+.map-screenshot {
+    width: 200px;
+    height: 200px;
+}
