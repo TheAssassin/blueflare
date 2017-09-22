@@ -163,6 +163,7 @@ class Server:
         # strings inside queryreply data
         self.map_name = None
         self.description = None
+        self.versionbranch = None
 
         # players are appended to the queryresponse and thus the last part
         self.players = None
@@ -221,11 +222,10 @@ class Server:
 
         self.description = stream.next_string()
 
-        # quick fix to make redflare-python work with 1.5.5 release
+        # from 1.5.5 on, the server sends a versionbranch string which has to
+        # be parsed
         if self.version[:2] == (1, 5) and self.version[2] > 3:
-            # throw away some irrelevant string that has been added after
-            # the description in 1.5.5 release
-            stream.next_string()
+            self.versionbranch = stream.next_string()
 
         self.players = []
 
