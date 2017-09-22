@@ -255,6 +255,10 @@ class Server:
         if not self.description.strip():
             self.description = "{}:[{}]".format(self.hostname, self.port)
 
+        # limit server description to 80 chars
+        # https://github.com/red-eclipse/base/compare/0512024fef0f...01f6afe516d8
+        self.description = self.description[:80]
+
     @staticmethod
     def from_addserver_line(data):
         parts = shlex.split(data)
