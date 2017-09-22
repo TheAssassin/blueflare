@@ -145,7 +145,7 @@ class Server:
 
         # integers inside queryreply data
         self.players_count = None
-        self.fifteen = None
+        self.number_of_ints = None
         self.protocol = None
         self.game_mode = None
         self.mutators = None
@@ -173,8 +173,9 @@ class Server:
 
         self.players_count = stream.next_int()
 
-        # some constant, whyever they put it there o_O
-        self.fifteen = stream.next_int()
+        # the number of integers following this value
+        # after this, the map name string etc. will follow
+        self.number_of_ints = stream.next_int()
 
         self.protocol = stream.next_int()
         self.game_mode = self.GAMEMODES[stream.next_int()]
@@ -199,6 +200,15 @@ class Server:
         self.game_state = stream.next_int()
         self.time_left = stream.next_int()
 
+        # 15 values fetched
+        # make sure there're no ints left to be fetched before interpreting
+        # the following bytes as map name strings
+        # TODO: notify in those cases so that the application is updated on
+        # protocol updates
+        for i in range(15, self.number_of_ints):
+            # throw away value
+            stream.next_int()
+
         self.map_name = stream.next_string()
 
         this_dir = os.path.abspath(os.path.dirname(__file__))
@@ -208,7 +218,6 @@ class Server:
             self.map_screenshot = screenshot_name
         else:
             self.map_screenshot = "unknown.png"
-
 
         self.description = stream.next_string()
 
@@ -265,7 +274,6 @@ class Server:
             "flags": self.flags,
             "country": self.country,
             "players_count": self.players_count,
-            "fifteen": self.fifteen,
             "protocol": self.protocol,
             "game_mode": self.game_mode,
             "mutators": self.mutators,
