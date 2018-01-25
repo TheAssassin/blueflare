@@ -163,6 +163,7 @@ class Server:
         # strings inside queryreply data
         self.map_name = None
         self.description = None
+        self.versionbuild = None
         self.versionbranch = None
 
         # players are appended to the queryresponse and thus the last part
@@ -222,10 +223,21 @@ class Server:
 
         self.description = stream.next_string()
 
-        # from 1.5.5 on, the server sends a versionbranch string which has to
-        # be parsed
-        if self.version[:2] == (1, 5) and self.version[2] > 3:
-            self.versionbranch = stream.next_string()
+        if self.version[0] >= 1:
+            # support for a "versionbuild" has been added in 1.6.0
+            if self.version[1] >= 6:
+                self.versionbuild = stream.next_string()
+
+            # from 1.5.5 on, the server sends a versionbranch string which has to
+            # be parsed
+            if self.version[1] >= 5 and self.version[2] > 3:
+                try:
+                    self.versionbranch = stream.next_string()
+                except struct.error:
+                    # some servers send an invalid version branch string
+                    # since it isn't used anywhere (yet), we'll just ignore
+                    # the error
+                    pass
 
         self.players = []
 
