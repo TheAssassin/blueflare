@@ -244,6 +244,10 @@ class Server:
         for i in range(self.players_count):
             player = stream.next_string()
             parts = player.split("\f")
+
+            if len(parts) < 4:
+                continue
+
             team_color, name = re.match("\[([0-9]+)\](.*)", parts[4]).groups()
 
             self.players.append({
