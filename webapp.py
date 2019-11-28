@@ -5,7 +5,7 @@ import re
 from tornado import gen, ioloop, web
 from redflare.master_client import MasterClient
 from redflare.privilege_icons import IconNotFoundError, generate_privilege_icon
-from redflare.server_client import ServerClient
+from redflare.server_query_client import ServerQueryClient
 
 
 class IndexHandler(web.RequestHandler):
@@ -20,17 +20,17 @@ class IndexHandler(web.RequestHandler):
 
         @gen.coroutine
         def fetch(server):
-            server_client = ServerClient(server.hostname, server.port)
+            server_query_client = ServerQueryClient(server.hostname, server.port)
             try:
-                query_reply = yield gen.Task(server_client.fetch_query_reply)
+                query_reply = yield server_query_client.query()
             except Exception as e:
-                print("Error fetching information for %r" % server)
+                print("Error fetching information for %r: %r" % (server, e))
             else:
                 if query_reply is not None:
                     server.parse_query_reply(query_reply)
 
-
         self.logger.info("Fetching data from {} servers".format(len(servers)))
+
         y = [fetch(server) for server in servers]
         yield y
 
@@ -99,7 +99,7 @@ if __name__ == "__main__":
         (r"/privilege-icon/(\w+)/(\w+).svg", PrivilegeIconHandler),
         (r"/maps/(\w+).png", MapScreenshotHandler),
         (r"/api/servers.json", IndexHandler),
-        (r"/(.*)", web.StaticFileHandler, {"path": frontend_path})
+        (r"/(.*)", web.StaticFileHandler, {"path": frontend_path}),
     ], autoreload=False)
 
     # ... listen on port 3000...
