@@ -1,4 +1,5 @@
 import glob
+import logging
 import os
 import re
 import shlex
@@ -6,10 +7,6 @@ import struct
 
 from geoip2.database import Reader as GeoIPReader
 from geoip2.errors import AddressNotFoundError
-
-
-# assumes to find a GeoLite2 database in the current working directory
-geoip_reader = GeoIPReader(glob.glob("GeoLite2-*.mmdb")[0])
 
 
 class Cube2BytesStream:
@@ -76,6 +73,13 @@ class Cube2BytesStream:
 
 
 class Server:
+    # assumes to find a GeoLite2 database in the current working directory
+    try:
+        _geoip_reader = GeoIPReader(glob.glob("GeoLite2-*.mmdb")[0])
+    except IndexError:
+        logging.getLogger("redflare").warning("Could not found GeoIP database, cannot resolve countries")
+        _geoip_reader = None
+
     # see src/game/gamemode.h
     MUTATORS = {
         "multi": 1 << 0,
@@ -134,10 +138,13 @@ class Server:
         self.priority = priority
         self.flags = flags
 
-        try:
-            self.country = geoip_reader.country(ip_address).country.iso_code
-        except (AttributeError, AddressNotFoundError):
-            self.country = None
+        self.country = None
+
+        if self._geoip_reader is not None:
+            try:
+                self.country = self._geoip_reader.country(ip_address).country.iso_code
+            except (AttributeError, AddressNotFoundError):
+                pass
 
         # Will be added later as soon as the data is fetched from the server
         # itself
