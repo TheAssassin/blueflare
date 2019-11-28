@@ -5,11 +5,11 @@ setup(
     version="0.0.1",
     packages=find_packages(),
     install_requires=[
-        "tornado==4.3",
+        "tornado>=6",
         "geoip2",
         "chardet",
     ],
-    package_data = {
+    package_data={
         "": ["privilege-icons/*.*"],
     }
 )
