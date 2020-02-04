@@ -13,7 +13,10 @@ class IndexHandler(web.RequestHandler):
 
     @gen.coroutine
     def get(self):
-        master_client = MasterClient("play.redeclipse.net", 28800)
+        master_host = os.environ.get("MASTER_HOST", "play.redeclipse.net")
+        master_client = int(os.environ.get("MASTER_PORT", 28800))
+
+        master_client = MasterClient(master_host, master_port)
 
         self.logger.info("Fetching servers from master server...")
         servers = yield master_client.fetch_servers()
