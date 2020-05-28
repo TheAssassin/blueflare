@@ -1,19 +1,19 @@
-# Redflare, but in Python
+# Blueflare
 
-This repository provides clients for the [Red Eclipse](http://redeclipse.net) master server
+This repository provides clients for the [Blue Nebula](https://github.com/blue-nebula) master server
 protocol and the server info protocol. It also contains a web application as a frontend and
 as an example application.
 
 This application was created as a modern competitor to the original
 [Redflare](http://redflare.ofthings.net)
-([Github project](https://github.com/stainsby/redflare), guess where its name originated from).
+([Github project](https://github.com/stainsby/redflare), guess what its name was inspired by).
 
 This application uses the tornado framework and runs only on Python 3.5.
 
 
 ## Demo
 
-Check out https://redflare.assassinate-you.net/ to watch a demo installation.
+Check out https://blueflare.assassinate-you.net/, the official instance.
 
 
 ## Deployment
