@@ -4,9 +4,10 @@ This repository provides clients for the [Blue Nebula](https://github.com/blue-n
 protocol and the server info protocol. It also contains a web application as a frontend and
 as an example application.
 
-This application was created as a modern competitor to the original
+This application was created as an alternative to the original
 [Redflare](http://redflare.ofthings.net)
-([Github project](https://github.com/stainsby/redflare), guess what its name was inspired by).
+([Github project](https://github.com/stainsby/redflare), guess what its name was inspired by),
+written in Python 3 using standard components like Bootstrap 3.
 
 This application uses the tornado framework and runs only on Python 3.5.
 
