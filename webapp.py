@@ -13,7 +13,7 @@ class IndexHandler(web.RequestHandler):
 
     @gen.coroutine
     def get(self):
-        master_host = os.environ.get("MASTER_HOST", "play.redeclipse.net")
+        master_host = os.environ.get("MASTER_HOST", "master.blue-nebula.org")
         master_port = int(os.environ.get("MASTER_PORT", 28800))
 
         master_client = MasterClient(master_host, master_port)
