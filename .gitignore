@@ -16,3 +16,13 @@ dist/
 *.mmdb
 
 docker-compose.yml
+
+*.swp
+
+*.yarn*
+yarn-*.log
+
+frontend/components
+node_modules/
+
+test.*
