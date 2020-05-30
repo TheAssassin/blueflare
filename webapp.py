@@ -8,7 +8,7 @@ from blueflare.privilege_icons import IconNotFoundError, generate_privilege_icon
 from blueflare.server_query_client import ServerQueryClient
 
 
-class IndexHandler(web.RequestHandler):
+class ServersAPIHandler(web.RequestHandler):
     logger = logging.getLogger("blueflare")
 
     @gen.coroutine
@@ -45,6 +45,16 @@ class IndexHandler(web.RequestHandler):
         self.add_header("Content-Type", "application/json")
         self.add_header("Access-Control-Allow-Origin", "*")
         self.write(rv)
+
+
+class IndexRedirectHandler(web.RequestHandler):
+    @gen.coroutine
+    def get(self):
+        self.redirect("index.html", permanent=False)
+
+    @gen.coroutine
+    def head(self):
+        return self.get()
 
 
 class PrivilegeIconHandler(web.RequestHandler):
@@ -101,7 +111,8 @@ if __name__ == "__main__":
     application = web.Application([
         (r"/privilege-icon/(\w+)/(\w+).svg", PrivilegeIconHandler),
         (r"/maps/(\w+).png", MapScreenshotHandler),
-        (r"/api/servers.json", IndexHandler),
+        (r"/api/servers.json", ServersAPIHandler),
+        (r"/?$", IndexRedirectHandler),
         (r"/(.*)", web.StaticFileHandler, {"path": frontend_path}),
     ], autoreload=False)
 
