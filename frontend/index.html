@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="blueflare.css">
 </head>
 <body>
-    <div class="container-fluid" ng-controller="ServerTableCtrl">
+    <div class="container" ng-controller="ServerTableCtrl">
         <h1>
             Blueflare
             <strong ng-if="loading">
@@ -87,8 +87,7 @@
                         </span>
                     </td>
                     <td class="right min">
-                        <span class="visible-md visible-lg">{{server.mutators}}</span>
-                        <span class="visible-sm">{{server.muts_short}}</span>
+                        {{server.muts_short}}
                     </td>
                     <td class="min">
                         <span class="visible-md visible-lg">{{server.game_mode}}</span>
