@@ -3,13 +3,13 @@ import logging
 import os
 import re
 from tornado import gen, ioloop, web
-from redflare.master_client import MasterClient
-from redflare.privilege_icons import IconNotFoundError, generate_privilege_icon
-from redflare.server_query_client import ServerQueryClient
+from blueflare.master_client import MasterClient
+from blueflare.privilege_icons import IconNotFoundError, generate_privilege_icon
+from blueflare.server_query_client import ServerQueryClient
 
 
 class IndexHandler(web.RequestHandler):
-    logger = logging.getLogger("redflare")
+    logger = logging.getLogger("blueflare")
 
     @gen.coroutine
     def get(self):
@@ -80,7 +80,7 @@ class MapScreenshotHandler(web.RequestHandler):
         this_dir = os.path.abspath(os.path.dirname(__file__))
 
         if map_name == "unknown":
-            unknown_screenshot = os.path.join(this_dir, "redflare/maps/unknown.png")
+            unknown_screenshot = os.path.join(this_dir, "blueflare/maps/unknown.png")
             with open(unknown_screenshot, "rb") as f:
                 self.add_header("Content-Type", "image/png")
                 self.write(f.read())
@@ -110,18 +110,18 @@ if __name__ == "__main__":
 
     # ... configure logging...
 
-    # ... set up redflare logging...
-    redflare_logger = logging.getLogger("redflare")
-    redflare_logger.setLevel(logging.ERROR)
-    redflare_logger.propagate = False
-    redflare_handler = logging.StreamHandler()
-    redflare_handler.setFormatter(
+    # ... set up blueflare logging...
+    blueflare_logger = logging.getLogger("blueflare")
+    blueflare_logger.setLevel(logging.ERROR)
+    blueflare_logger.propagate = False
+    blueflare_handler = logging.StreamHandler()
+    blueflare_handler.setFormatter(
         logging.Formatter(
             '%(asctime)s %(levelname)s: %(message)s '
             '[in %(pathname)s:%(lineno)d]'
         )
     )
-    redflare_logger.addHandler(redflare_handler)
+    blueflare_logger.addHandler(blueflare_handler)
 
     # ... and enable tornado web logs properly...
     tornado_logger = logging.getLogger("tornado.access")

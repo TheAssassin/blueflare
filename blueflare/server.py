@@ -77,7 +77,7 @@ class Server:
     try:
         _geoip_reader = GeoIPReader(glob.glob("GeoLite2-*.mmdb")[0])
     except IndexError:
-        logging.getLogger("redflare").warning("Could not found GeoIP database, cannot resolve countries")
+        logging.getLogger("blueflare").warning("Could not found GeoIP database, cannot resolve countries")
         _geoip_reader = None
 
     # see src/game/gamemode.h

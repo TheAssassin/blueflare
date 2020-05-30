@@ -7,13 +7,13 @@ var gamemodeMap = {
     "race": "race",
 }
 
-var redflareApp = angular.module("redflare", ["ui.bootstrap"])
+var blueflareApp = angular.module("blueflare", ["ui.bootstrap"])
 
-redflareApp.config(["$compileProvider", function ($compileProvider) {
+blueflareApp.config(["$compileProvider", function ($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|redeclipse):/);
 }]);
 
-redflareApp.controller("ServerTableCtrl", function($scope, $http, $interval, $sce) {
+blueflareApp.controller("ServerTableCtrl", function($scope, $http, $interval, $sce) {
     $scope.getPrivilegeIconURL = function(player) {
         return "privilege-icon/" + player.privilege + "/" + player.color.slice(1, 7) + ".svg"
     }

@@ -4,7 +4,7 @@ from tornado import ioloop, gen
 
 
 class ServerQueryClient:
-    _logger = logging.getLogger("redflare")
+    _logger = logging.getLogger("blueflare")
 
     def __init__(self, hostname, port):
         self._hostname = hostname

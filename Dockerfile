@@ -6,20 +6,20 @@ SHELL ["sh", "-x", "-c"]
 
 RUN apk add --no-cache ca-certificates gcc git musl-dev nodejs libmaxminddb-dev yarn
 
-COPY ./redflare /redflare/redflare
-COPY ./frontend /redflare/frontend
-COPY ./maps /redflare/maps
-COPY ./*.py package.json /redflare/
+COPY blueflare /blueflare/blueflare
+COPY ./frontend /blueflare/frontend
+COPY ./maps /blueflare/maps
+COPY ./*.py package.json /blueflare/
 
-WORKDIR /redflare/
+WORKDIR /blueflare/
 
 # ensure installation order, python-geoip-geolite2 installation might fail otherwise
 RUN pip3 install python-geoip-python3 python-geoip-geolite2 && \
     python3 setup.py develop && \
     yarn install && \
-    adduser -S -D -h /redflare redflare
+    adduser -S -D -h /blueflare blueflare
 
-USER redflare
+USER blueflare
 
 EXPOSE 3000
 
