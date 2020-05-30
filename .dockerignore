@@ -6,3 +6,11 @@
 .idea
 frontend/components
 .git
+
+*.yarn*
+yarn-*.log
+
+frontend/components
+node_modules/
+
+test.*
