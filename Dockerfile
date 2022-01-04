@@ -1,26 +1,28 @@
-FROM python:3.7-alpine
+FROM python:3-alpine
 
 MAINTAINER "TheAssassin <theassassin@user.noreply.github.com>"
 
 SHELL ["sh", "-x", "-c"]
 
-RUN apk add --no-cache ca-certificates gcc git musl-dev nodejs libmaxminddb-dev yarn
+RUN apk add --no-cache ca-certificates gcc git musl-dev nodejs libmaxminddb-dev yarn libffi-dev
 
 COPY blueflare /blueflare/blueflare
 COPY ./frontend /blueflare/frontend
 COPY ./maps /blueflare/maps
-COPY ./*.py package.json /blueflare/
+COPY ./*.py package.json yarn.lock pyproject.toml poetry.lock /blueflare/
 
 WORKDIR /blueflare/
 
-# ensure installation order, python-geoip-geolite2 installation might fail otherwise
-RUN pip3 install python-geoip-python3 python-geoip-geolite2 && \
-    python3 setup.py develop && \
-    yarn install && \
-    adduser -S -D -h /blueflare blueflare
-
+# poetry installs to $HOME, so we have to set that up first
+RUN pip install -U poetry && \
+    adduser -S -D -h /home/blueflare blueflare && \
+    chown -R blueflare /blueflare
 USER blueflare
+
+RUN mkdir -p /blueflare && \
+    poetry install && \
+    yarn install
 
 EXPOSE 3000
 
-CMD python3 webapp.py
+CMD poetry run python3 webapp.py
