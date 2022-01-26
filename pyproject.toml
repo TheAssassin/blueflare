@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-tornado = "^6"
+tornado = "^6.1"
 geoip2 = "*"
 chardet = "*"
 
