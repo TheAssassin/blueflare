@@ -252,7 +252,7 @@ class Server:
             player = stream.next_string()
             parts = player.split("\f")
 
-            if len(parts) < 4:
+            if len(parts) < 5:
                 continue
 
             team_color, name = re.match("\[([0-9]+)\](.*)", parts[4]).groups()
