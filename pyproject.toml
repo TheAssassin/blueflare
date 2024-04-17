@@ -6,7 +6,7 @@ authors = ["TheAssassin <theassassin@assassinate-you.net>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.10"
 tornado = "^6.1"
 geoip2 = "*"
 chardet = "*"
