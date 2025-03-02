@@ -1,6 +1,7 @@
 FROM python:3-alpine
 
 MAINTAINER "TheAssassin <theassassin@user.noreply.github.com>"
+LABEL org.opencontainers.image.source="https://github.com/TheAssassin/blueflare"
 
 SHELL ["sh", "-x", "-c"]
 
