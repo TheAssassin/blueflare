@@ -5,6 +5,7 @@ html, .container-fluid {
 
 body {
     padding-bottom: 60px;
+    height: 100%;
 }
 
 td.min, th.min {
