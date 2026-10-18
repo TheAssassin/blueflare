@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import pathlib
 import re
 from tornado import gen, ioloop, web
 from blueflare.master_client import MasterClient
@@ -106,14 +107,18 @@ class MapScreenshotHandler(web.RequestHandler):
 
 if __name__ == "__main__":
     # creating web application...
-    frontend_path = os.path.join(os.path.dirname(__file__), "frontend")
+    this_dir = pathlib.Path(os.path.dirname(__file__))
+    frontend_path = this_dir / "frontend"
 
     application = web.Application([
         (r"/privilege-icon/(\w+)/(\w+).svg", PrivilegeIconHandler),
         (r"/maps/(\w+).png", MapScreenshotHandler),
         (r"/api/servers.json", ServersAPIHandler),
         (r"/?$", IndexRedirectHandler),
-        (r"/(.*)", web.StaticFileHandler, {"path": frontend_path}),
+        (r"/(.*)", web.StaticFileHandler, {
+            "path": str(frontend_path),
+            "allowed_symlink_directory": str(this_dir),
+        }),
     ], autoreload=False)
 
     # ... listen on port 3000...
