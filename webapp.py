@@ -43,8 +43,8 @@ class ServersAPIHandler(web.RequestHandler):
 
         rv = json.dumps(dict(servers=servers_list))
 
-        self.add_header("Content-Type", "application/json")
-        self.add_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Content-Type", "application/json")
+        self.set_header("Access-Control-Allow-Origin", "*")
         self.write(rv)
 
 
