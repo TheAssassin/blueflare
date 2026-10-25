@@ -62,7 +62,7 @@ class PrivilegeIconHandler(web.RequestHandler):
     def get(self, privilege, color):
         def abort(message):
             self.set_status(400)
-            self.add_header("Content-Type", "text/plain")
+            self.set_header("Content-Type", "text/plain")
             self.write(message)
 
         # validate color format
@@ -77,7 +77,7 @@ class PrivilegeIconHandler(web.RequestHandler):
             except IconNotFoundError:
                 abort("Error: No such privilege: {}".format(privilege))
             else:
-                self.add_header("Content-Type", "image/svg+xml")
+                self.set_header("Content-Type", "image/svg+xml")
                 self.write(icon)
 
 
@@ -85,7 +85,7 @@ class MapScreenshotHandler(web.RequestHandler):
     def get(self, map_name):
         def not_found():
             self.set_status(404)
-            self.add_header("Content-Type", "text/plain")
+            self.set_header("Content-Type", "text/plain")
             self.write("No such file or directory")
 
         this_dir = os.path.abspath(os.path.dirname(__file__))
@@ -93,13 +93,13 @@ class MapScreenshotHandler(web.RequestHandler):
         if map_name == "unknown":
             unknown_screenshot = os.path.join(this_dir, "blueflare/maps/unknown.png")
             with open(unknown_screenshot, "rb") as f:
-                self.add_header("Content-Type", "image/png")
+                self.set_header("Content-Type", "image/png")
                 self.write(f.read())
 
         else:
             try:
                 with open(os.path.join(this_dir, "maps/%s.png" % map_name), "rb") as f:
-                    self.add_header("Content-Type", "image/png")
+                    self.set_header("Content-Type", "image/png")
                     self.write(f.read())
             except IOError:
                 return not_found()
